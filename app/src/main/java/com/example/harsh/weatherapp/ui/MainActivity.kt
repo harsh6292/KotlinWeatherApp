@@ -5,10 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.harsh.weatherapp.R
-import com.example.harsh.weatherapp.data.Request
 import com.example.harsh.weatherapp.domain.commands.RequestForecastCommand
+import com.example.harsh.weatherapp.domain.model.ModelForecast
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +28,12 @@ class MainActivity : AppCompatActivity() {
             val result = RequestForecastCommand("27606").execute()
             uiThread {
                 longToast("Request Performed!")
-                forecastList.adapter = ForecastListAdapter(result)
+                forecastList.adapter = ForecastListAdapter(result,
+                    object : ForecastListAdapter.OnItemClickListener {
+                        override fun invoke(forecast: ModelForecast) {
+                            toast("Date is ${forecast.date}")
+                        }
+                    })
             }
         }
     }
