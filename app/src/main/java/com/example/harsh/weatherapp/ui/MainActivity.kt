@@ -17,13 +17,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        forecast_list.layoutManager = LinearLayoutManager(this)
+        forecastList.layoutManager = LinearLayoutManager(this)
 
         doAsync {
             val result = RequestForecastCommand("27606").execute()
             uiThread {
                 longToast("Request Performed!")
-                forecast_list.adapter = ForecastListAdapter(result) { toast("Date is ${it.date}") }
+                forecastList.adapter = ForecastListAdapter(result) { toast("Date is ${it.date}") }
             }
         }
     }
