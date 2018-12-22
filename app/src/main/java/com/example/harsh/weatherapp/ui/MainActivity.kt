@@ -28,12 +28,7 @@ class MainActivity : AppCompatActivity() {
             val result = RequestForecastCommand("27606").execute()
             uiThread {
                 longToast("Request Performed!")
-                forecastList.adapter = ForecastListAdapter(result,
-                    object : ForecastListAdapter.OnItemClickListener {
-                        override fun invoke(forecast: ModelForecast) {
-                            toast("Date is ${forecast.date}")
-                        }
-                    })
+                forecastList.adapter = ForecastListAdapter(result) { toast("Date is ${it.date}") }
             }
         }
     }
