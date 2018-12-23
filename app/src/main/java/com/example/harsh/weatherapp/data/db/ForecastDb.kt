@@ -2,6 +2,8 @@ package com.example.harsh.weatherapp.data.db
 
 import com.example.harsh.weatherapp.domain.datasource.ForecastDataSource
 import com.example.harsh.weatherapp.domain.model.ForecastList
+import com.example.harsh.weatherapp.domain.model.ModelForecast
+import com.example.harsh.weatherapp.extensions.byId
 import com.example.harsh.weatherapp.extensions.toVarargArray
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
@@ -28,6 +30,11 @@ class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelp
         }
     }
 
+    override fun requestDayForecast(zipCode: Long): ModelForecast? = forecastDbHelper.use {
+        val forecast = select(DayForecastTable.NAME).byId(zipCode).parseOpt { DayForecast(HashMap(it)) }
+
+        if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
+    }
 
     fun saveForecast(forecast: ForecastList) = forecastDbHelper.use {
         clear(CityForecastTable.NAME)

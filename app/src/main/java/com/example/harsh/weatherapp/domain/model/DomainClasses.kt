@@ -7,4 +7,4 @@ data class ForecastList(val id: Long, val city: String, val country: String, val
     operator fun get(pos: Int): ModelForecast = dailyModelForecast[pos]
 }
 
-data class ModelForecast(val date: Long, val description: String, val high: Int, val low: Int, val iconUrl: String)
+data class ModelForecast(val forecastId: Long, val date: Long, val description: String, val high: Int, val low: Int, val iconUrl: String)

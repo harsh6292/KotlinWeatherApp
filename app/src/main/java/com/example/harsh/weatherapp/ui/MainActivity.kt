@@ -8,7 +8,7 @@ import com.example.harsh.weatherapp.domain.commands.RequestForecastCommand
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.longToast
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -21,10 +21,16 @@ class MainActivity : AppCompatActivity() {
 
         doAsync {
             val result = RequestForecastCommand(27606).execute()
-            uiThread {
+             uiThread {
                 longToast("Request Performed!")
-                forecastList.adapter = ForecastListAdapter(result) { toast("Date is ${it.date}") }
+                val adapter = ForecastListAdapter(result) {
+                    startActivity<DetailActivity>(DetailActivity.ID to it.forecastId, DetailActivity.CITY_NAME to result.city)
+                }
+                forecastList.adapter = adapter
+                title = "${result.city} (${result.country})"
             }
+
+            return@doAsync
         }
     }
 }
