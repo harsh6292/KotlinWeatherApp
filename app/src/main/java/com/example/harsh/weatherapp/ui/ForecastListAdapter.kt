@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.example.harsh.weatherapp.R
 import com.example.harsh.weatherapp.domain.model.ForecastList
 import com.example.harsh.weatherapp.domain.model.ModelForecast
-import com.example.harsh.weatherapp.ui.utils.ctx
+import com.example.harsh.weatherapp.extensions.ctx
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.layout_item_forecast.*

@@ -1,4 +1,4 @@
-package com.example.harsh.weatherapp.ui.utils
+package com.example.harsh.weatherapp.extensions
 
 import android.content.Context
 import android.view.View

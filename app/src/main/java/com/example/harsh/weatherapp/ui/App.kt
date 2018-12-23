@@ -1,7 +1,7 @@
 package com.example.harsh.weatherapp.ui
 
 import android.app.Application
-import com.example.harsh.weatherapp.ui.utils.DelegatesExtensions
+import com.example.harsh.weatherapp.extensions.DelegatesExtensions
 
 class App: Application() {
 

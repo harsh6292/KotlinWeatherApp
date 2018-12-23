@@ -1,13 +1,16 @@
 package com.example.harsh.weatherapp.domain.commands
 
-import com.example.harsh.weatherapp.data.ForecastRequest
-import com.example.harsh.weatherapp.domain.mappers.ForecastDataMapper
+import com.example.harsh.weatherapp.domain.datasource.ForecastProvider
 import com.example.harsh.weatherapp.domain.model.ForecastList
 
-class RequestForecastCommand(private val zipCode: String): Command<ForecastList> {
-    override fun execute(): ForecastList {
+class RequestForecastCommand(private val zipCode: Long,
+                             private val forecastProvider: ForecastProvider = ForecastProvider()
+):
+    Command<ForecastList> {
 
-        val forecastRequest = ForecastRequest(zipCode)
-        return ForecastDataMapper().convertFromDataModel(forecastRequest.execute())
+    companion object {
+        const val DAYS = 7
     }
+
+    override fun execute(): ForecastList = forecastProvider.requestByZipcode(zipCode, DAYS)
 }

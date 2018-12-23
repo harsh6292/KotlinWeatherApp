@@ -1,15 +1,15 @@
 package com.example.harsh.weatherapp.data.db
 
+import com.example.harsh.weatherapp.domain.datasource.ForecastDataSource
 import com.example.harsh.weatherapp.domain.model.ForecastList
 import com.example.harsh.weatherapp.extensions.toVarargArray
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 
-class ForecastDb {
-    private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.dbInstance
-    private val dataMapper: DbDataMapper = DbDataMapper()
+class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.dbInstance,
+                 private val dataMapper: DbDataMapper = DbDataMapper()): ForecastDataSource {
 
-    fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? " +
                 "AND ${DayForecastTable.DATE} >= ?"
 
