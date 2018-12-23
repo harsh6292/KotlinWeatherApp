@@ -35,7 +35,7 @@ class ForecastListAdapter(private val weekForecast: ForecastList,
         fun bindForecast(forecast: ModelForecast) {
             with(forecast) {
                 Picasso.with(itemView.ctx).load(iconUrl).into(icon)
-                dateText.text = date
+                dateText.text = date.toString()
                 descriptionText.text = description
                 maxTemperature.text = "$high"
                 minTemperature.text = "$low"
